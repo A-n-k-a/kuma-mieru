@@ -1,0 +1,71 @@
+name: Sync upstream branches and tags
+
+on:
+  schedule:
+    - cron: '* */24 * * *' # 每24小时触发一次
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.UPSTREAM_SYNC_TOKEN }}
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream and fetch
+        run: |
+          set -e
+          git remote add upstream https://github.com/Alice39s/kuma-mieru.git
+
+          echo "📥 Fetch origin..."
+          git fetch origin --prune
+
+          echo "📥 Fetch upstream branches and tags..."
+          git fetch upstream --prune --tags
+
+      - name: Sync all branches (fail on conflict)
+        run: |
+          set -e
+
+          # 遍历 upstream 的所有分支名
+          for branch in $(git branch -r | grep '^  upstream/' | grep -v 'HEAD' | sed 's|  upstream/||'); do
+            echo "🔄 Syncing branch: $branch"
+
+            # 如果 origin 远端存在该分支，则以 origin 为基底进行 merge
+            if git show-ref --verify --quiet refs/remotes/origin/$branch; then
+              echo "✅ Branch exists on origin: $branch"
+
+              # 用 origin 分支作为本地分支基底
+              git checkout -B $branch origin/$branch
+
+              # merge upstream 分支（冲突则失败退出）
+              git merge upstream/$branch --no-edit || {
+                echo "❌ Merge conflict on branch: $branch"
+                exit 1
+              }
+
+            else
+              echo "🆕 Branch does not exist on origin, creating from upstream: $branch"
+
+              # origin 不存在 -> 直接从 upstream 创建本地分支
+              git checkout -B $branch upstream/$branch
+            fi
+
+            echo "🚀 Pushing branch: $branch"
+            git push origin $branch
+          done
+
+      - name: Sync tags
+        run: |
+          set -e
+          echo "🏷️ Syncing tags..."
+          git push origin --tags
