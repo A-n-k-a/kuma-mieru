@@ -10,10 +10,10 @@ const __dirname = dirname(__filename);
 
 const defaultProtocols = ['https', 'http'];
 
-const normalizePatterns = (patterns) => {
+const normalizePatterns = patterns => {
   const seen = new Set();
 
-  return patterns.filter((pattern) => {
+  return patterns.filter(pattern => {
     if (!pattern?.hostname || !pattern?.protocol) return false;
 
     const key = `${pattern.protocol}://${pattern.hostname}`;
@@ -24,6 +24,10 @@ const normalizePatterns = (patterns) => {
 };
 
 const getImageRemotePatterns = () => {
+  if (process.env.STRICT_IMAGE_REMOTE_PATTERNS !== 'true') {
+    return normalizePatterns(defaultProtocols.map(protocol => ({ hostname: '*', protocol })));
+  }
+
   try {
     const configPath = join(process.cwd(), 'config', 'generated', 'image-domains.json');
     const config = JSON.parse(readFileSync(configPath, 'utf8'));
@@ -32,9 +36,10 @@ const getImageRemotePatterns = () => {
       const patterns = config.patterns.flatMap(({ hostname, protocols }) => {
         if (!hostname) return [];
 
-        const resolvedProtocols = Array.isArray(protocols) && protocols.length > 0 ? protocols : defaultProtocols;
+        const resolvedProtocols =
+          Array.isArray(protocols) && protocols.length > 0 ? protocols : defaultProtocols;
 
-        return resolvedProtocols.map((protocol) => ({ hostname, protocol }));
+        return resolvedProtocols.map(protocol => ({ hostname, protocol }));
       });
 
       const normalized = normalizePatterns(patterns);
@@ -44,8 +49,8 @@ const getImageRemotePatterns = () => {
     }
 
     if (Array.isArray(config?.domains) && config.domains.length > 0) {
-      const patterns = config.domains.flatMap((hostname) =>
-        defaultProtocols.map((protocol) => ({ hostname, protocol })),
+      const patterns = config.domains.flatMap(hostname =>
+        defaultProtocols.map(protocol => ({ hostname, protocol }))
       );
 
       const normalized = normalizePatterns(patterns);
@@ -57,7 +62,7 @@ const getImageRemotePatterns = () => {
     // Fallback to defaults below
   }
 
-  return normalizePatterns(defaultProtocols.map((protocol) => ({ hostname: '*', protocol })));
+  return normalizePatterns(defaultProtocols.map(protocol => ({ hostname: '*', protocol })));
 };
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -70,6 +75,11 @@ const baseConfig = {
 
   images: {
     remotePatterns: getImageRemotePatterns(),
+    localPatterns: [
+      {
+        pathname: '/api/icon',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
   },
@@ -121,12 +131,9 @@ const productionConfig = {
     reactRemoveProperties: true,
   },
 
-  serverExternalPackages: ['sharp', 'cheerio', 'markdown-it', 'sanitize-html'],
+  serverExternalPackages: ['sharp', 'cheerio'],
 
   async headers() {
-    // Parse ALLOW_EMBEDDING: false/unset=block, true=allow all, or comma-separated origin list
-    const allowEmbedding = process.env.ALLOW_EMBEDDING;
-
     const baseHeaders = [
       {
         key: 'X-Content-Type-Options',
@@ -141,40 +148,6 @@ const productionConfig = {
         value: 'public, max-age=300, stale-while-revalidate=60',
       },
     ];
-
-    if (!allowEmbedding || allowEmbedding === 'false') {
-      // Block iframe embedding (default)
-      baseHeaders.push({
-        key: 'X-Frame-Options',
-        value: 'SAMEORIGIN',
-      });
-    } else if (allowEmbedding === 'true') {
-      // Allow all origins (not recommended, security risk)
-      baseHeaders.push({
-        key: 'Content-Security-Policy',
-        value: "frame-ancestors 'self' *;",
-      });
-    } else {
-      // Parse comma-separated origin list, auto-add 'self'
-      const origins = allowEmbedding
-        .split(',')
-        .map((origin) => origin.trim())
-        .filter(Boolean);
-
-      // Normalize origins: add https:// protocol if missing
-      const normalizedOrigins = origins.map((origin) => {
-        if (origin.startsWith('http')) return origin;
-        return `https://${origin}`;
-      });
-
-      // Always include 'self' in allowed origins
-      const frameAncestors = `'self' ${normalizedOrigins.join(' ')}`;
-
-      baseHeaders.push({
-        key: 'Content-Security-Policy',
-        value: `frame-ancestors ${frameAncestors};`,
-      });
-    }
 
     return [
       {
