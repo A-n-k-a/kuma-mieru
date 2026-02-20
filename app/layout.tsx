@@ -4,18 +4,21 @@ import type { Metadata, Viewport } from 'next';
 
 import Analytics from '@/components/basic/google-analytics';
 import { fontMono, fontSans } from '@/config/fonts';
+import { DEFAULT_SITE_DESCRIPTION, DEFAULT_SITE_ICON, DEFAULT_SITE_TITLE } from '@/config/defaults';
 import { getConfig } from '@/config/api';
 import packageJson from '@/package.json';
-import { getGlobalConfig } from '@/services/config.server';
+import { getGlobalConfig, getPageTabsMetadataResult } from '@/services/config.server';
+import { isSsrStrictMode } from '@/services/utils/common';
 import { buildIconProxyUrl } from '@/utils/icon-proxy';
 import { getLocale, getMessages } from 'next-intl/server';
 import { Providers } from './providers';
+import { assertGlobalAvailability } from './lib/page-health';
 
 import { Toaster } from 'sonner';
 
-const DEFAULT_TITLE = 'Kuma Mieru';
-const DEFAULT_DESCRIPTION = 'A beautiful and modern uptime monitoring dashboard';
-const DEFAULT_ICON = '/icon.svg';
+const DEFAULT_TITLE = DEFAULT_SITE_TITLE;
+const DEFAULT_DESCRIPTION = DEFAULT_SITE_DESCRIPTION;
+const DEFAULT_ICON = DEFAULT_SITE_ICON;
 
 export const dynamic = 'force-dynamic';
 
@@ -55,11 +58,19 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Parallel fetch i18n data and global config to reduce waiting time
-  const [locale, messages, { config }] = await Promise.all([
+  const [locale, messages, { config }, pageTabsResult] = await Promise.all([
     getLocale(),
     getMessages(),
     getGlobalConfig(),
+    getPageTabsMetadataResult(),
   ]);
+
+  assertGlobalAvailability(
+    pageTabsResult.matrix,
+    pageTabsResult.tabs,
+    pageTabsResult.tabs.length,
+    isSsrStrictMode
+  );
 
   const { theme, googleAnalyticsId } = config;
 
