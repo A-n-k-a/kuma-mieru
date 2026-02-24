@@ -66,6 +66,7 @@ export function MonitorCard({
 
   const { statusVisual, StatusIcon } = getMonitorCardStatusMeta(heartbeats);
   const uptimeData = getUptimeRingData(uptime24h, statusVisual.ringFill);
+  const defaultChartRange = heartbeats.length >= 100 ? '100-points' : '50-points';
 
   const handleClick = () => {
     if (isHome) {
@@ -151,7 +152,7 @@ export function MonitorCard({
           </div>
         </CardHeader>
         <CardBody className="grid grid-rows-[auto_auto_1fr] gap-4">
-          <StatusBlockIndicator heartbeats={heartbeats} isHome={isHome} />
+          <StatusBlockIndicator heartbeats={heartbeats} isHome={isHome} showHeader={true} />
 
           <Divider />
 
@@ -162,6 +163,7 @@ export function MonitorCard({
                 height={120}
                 color={statusVisual.chartColor}
                 showGrid
+                defaultRange={defaultChartRange}
               />
             )}{' '}
             {isSafari && (
