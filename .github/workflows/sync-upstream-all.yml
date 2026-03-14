@@ -2,7 +2,7 @@ name: Sync upstream branches and tags
 
 on:
   schedule:
-    - cron: '* */24 * * *' # 每24小时触发一次
+    - cron: '0 20 * * *' # 北京时间4:00
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout fork
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.UPSTREAM_SYNC_TOKEN }}
@@ -24,6 +24,7 @@ jobs:
       - name: Add upstream and fetch
         run: |
           set -e
+
           git remote add upstream https://github.com/Alice39s/kuma-mieru.git
 
           echo "📥 Fetch origin..."
@@ -32,39 +33,68 @@ jobs:
           echo "📥 Fetch upstream branches and tags..."
           git fetch upstream --prune --tags
 
-      - name: Sync all branches (fail on conflict)
+      - name: Sync all branches (skip conflicts, fail at end)
         run: |
-          set -e
+          set +e  # 不在中途直接失败
 
-          # 遍历 upstream 的所有分支名
+          conflict_branches=()
+          synced_branches=()
+
           for branch in $(git branch -r | grep '^  upstream/' | grep -v 'HEAD' | sed 's|  upstream/||'); do
             echo "🔄 Syncing branch: $branch"
 
-            # 如果 origin 远端存在该分支，则以 origin 为基底进行 merge
             if git show-ref --verify --quiet refs/remotes/origin/$branch; then
               echo "✅ Branch exists on origin: $branch"
+              git checkout -B "$branch" "origin/$branch"
 
-              # 用 origin 分支作为本地分支基底
-              git checkout -B $branch origin/$branch
-
-              # merge upstream 分支（冲突则失败退出）
-              git merge upstream/$branch --no-edit || {
+              git merge "upstream/$branch" --no-edit
+              if [ $? -ne 0 ]; then
                 echo "❌ Merge conflict on branch: $branch"
-                exit 1
-              }
+                conflict_branches+=("$branch")
 
+                git merge --abort || true
+                git reset --hard
+                continue
+              fi
             else
               echo "🆕 Branch does not exist on origin, creating from upstream: $branch"
-
-              # origin 不存在 -> 直接从 upstream 创建本地分支
-              git checkout -B $branch upstream/$branch
+              git checkout -B "$branch" "upstream/$branch"
             fi
 
             echo "🚀 Pushing branch: $branch"
-            git push origin $branch
+            git push origin "$branch"
+            synced_branches+=("$branch")
           done
 
+          echo "## 🔄 Upstream Sync Result" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ ${#synced_branches[@]} -ne 0 ]; then
+            echo "### ✅ Successfully Synced Branches" >> "$GITHUB_STEP_SUMMARY"
+            for b in "${synced_branches[@]}"; do
+              echo "- \`$b\`" >> "$GITHUB_STEP_SUMMARY"
+            done
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ ${#conflict_branches[@]} -ne 0 ]; then
+            echo "### ❌ Branches With Merge Conflicts" >> "$GITHUB_STEP_SUMMARY"
+            echo "_Manual intervention required_" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            for b in "${conflict_branches[@]}"; do
+              echo "- 🚫 \`$b\`" >> "$GITHUB_STEP_SUMMARY"
+            done
+
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "> ❗ Sync completed with merge conflicts. Job marked as **failed**." >> "$GITHUB_STEP_SUMMARY"
+
+            exit 1
+          else
+            echo "🎉 All branches synced successfully without conflicts." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Sync tags
+        if: always()
         run: |
           set -e
           echo "🏷️ Syncing tags..."
