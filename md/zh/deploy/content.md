@@ -1,0 +1,65 @@
+# 选择部署方式 (https://alice39s.github.io/kuma-mieru/zh/deploy/)
+
+## 部署前准备 [#部署前准备]
+
+- 一个 Uptime Kuma 状态页的完整 URL，例如 `https://example.kuma-mieru.invalid/status/default`。
+- Uptime Kuma 的显示时区已设为 UTC+0。
+
+这两项的操作步骤见[连接 Uptime Kuma](https://alice39s.github.io/kuma-mieru/zh/configuration/uptime-kuma/)。
+
+## 部署方式 [#部署方式]
+
+<Cards>
+  <Card
+    title="Vercel"
+    description="推荐。Fork 仓库后在网页上导入，不需要自己的服务器。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/vercel/"
+    icon={<Triangle />}
+  />
+  <Card
+    title="Netlify"
+    description="用 Deploy 按钮或导入 Fork 的仓库部署。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/netlify/"
+    icon={<Globe />}
+  />
+  <Card
+    title="EdgeOne Pages"
+    description="导入 Fork 的仓库，选择 Next.js 框架预设。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/edgeone/"
+    icon={<Zap />}
+  />
+  <Card
+    title="Cloudflare Workers"
+    description="暂不支持。说明仓库中保留的 Cloudflare 配置。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/cloudflare/"
+    icon={<Cloud />}
+  />
+  <Card
+    title="Docker"
+    description="Beta。在自己的服务器上运行 GHCR 镜像。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/docker/"
+    icon={<Container />}
+  />
+  <Card
+    title="从源码运行"
+    description="在本机用 Bun 启动开发服务器或构建生产版本。"
+    href="https://alice39s.github.io/kuma-mieru/zh/deploy/source/"
+    icon={<Terminal />}
+  />
+</Cards>
+
+## 平台根目录 [#平台根目录]
+
+仓库是 monorepo，Web 应用位于 `apps/web`。在 Vercel、EdgeOne Pages 或 Cloudflare 导入仓库时，把项目根目录（Root Directory）设为 `apps/web`；在 Netlify 导入时，把 Package directory 设为 `apps/web`，见 [Netlify](https://alice39s.github.io/kuma-mieru/zh/deploy/netlify/)。各平台的配置文件 `vercel.json`、`netlify.toml`、`edgeone.json` 和 `wrangler.jsonc` 都在这个目录中。
+
+## 配置何时生效 [#配置何时生效]
+
+Web 应用用 `generate` 脚本生成配置：读取环境变量，请求每个状态页取得标题、描述和图标，再把结果写入 `apps/web/config/generated-config.json`。各部署方式运行这个脚本的时机不同，修改环境变量后的操作也不同。
+
+| 部署方式                       | 生成配置的时机                                            | 修改环境变量后     |
+| ------------------------------ | --------------------------------------------------------- | ------------------ |
+| Vercel、Netlify、EdgeOne Pages | 平台构建时                                                | 重新部署           |
+| Docker                         | 容器启动时                                                | 重新创建容器       |
+| 从源码运行                     | 运行 `bun run dev`、`bun run build` 或 `bun run start` 时 | 重新运行对应的命令 |
+
+个别变量的生效时机与上表不同，见[环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/)。

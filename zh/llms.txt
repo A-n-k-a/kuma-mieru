@@ -1,0 +1,20 @@
+# Kuma Mieru 文档
+
+- [概览](https://alice39s.github.io/kuma-mieru/zh/): 了解 Kuma Mieru 的功能，找到部署和配置的入口。
+- 部署
+  - [选择部署方式](https://alice39s.github.io/kuma-mieru/zh/deploy/): 比较各部署方式的支持状态和配置生效方式，选出适合你的一种。
+  - [Vercel](https://alice39s.github.io/kuma-mieru/zh/deploy/vercel/): Fork 仓库，导入 Vercel，填写状态页 URL 后部署。这是推荐的部署方式。
+  - [Netlify](https://alice39s.github.io/kuma-mieru/zh/deploy/netlify/): 用 Deploy 按钮或导入 Fork 的仓库，把 Kuma Mieru 部署到 Netlify。
+  - [EdgeOne Pages](https://alice39s.github.io/kuma-mieru/zh/deploy/edgeone/): 把 Fork 的仓库导入 EdgeOne Pages，部署 Kuma Mieru。
+  - [Cloudflare Workers](https://alice39s.github.io/kuma-mieru/zh/deploy/cloudflare/): Cloudflare Workers 部署暂不支持，本页列出仓库中保留的 Cloudflare 配置和脚本。
+  - [Docker](https://alice39s.github.io/kuma-mieru/zh/deploy/docker/): 在自己的服务器上用 Docker Compose 或 docker run 运行 Kuma Mieru 的 GHCR 镜像。
+  - [从源码运行](https://alice39s.github.io/kuma-mieru/zh/deploy/source/): 在本机用 Bun 和 Node.js 从源码启动开发服务器，或构建并运行生产版本。
+- 配置
+  - [环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/): 列出 Kuma Mieru 读取的全部环境变量，以及它们的默认值和生效时机。
+  - [连接 Uptime Kuma](https://alice39s.github.io/kuma-mieru/zh/configuration/uptime-kuma/): 在 Uptime Kuma 中创建状态页并设置显示时区，再把状态页 URL 交给 Kuma Mieru。
+- 指南
+  - [版本策略](https://alice39s.github.io/kuma-mieru/zh/guides/versioning/): 说明 Docker 镜像标签的含义、v1 的兼容范围和发布流程，帮你选择要使用的标签。
+  - [常见问题](https://alice39s.github.io/kuma-mieru/zh/guides/faq/): 时间偏移、配置不生效、构建报错和 iframe 嵌入等问题的原因与处理方法。
+- 开发
+  - [参与开发](https://alice39s.github.io/kuma-mieru/zh/development/): 搭建本地开发环境，了解仓库结构、常用命令和提交 Pull Request 的流程。
+  - [设计规范](https://alice39s.github.io/kuma-mieru/zh/development/design/): 文档站的版式、颜色、组件与预览图规则，修改界面前先读这一页。

@@ -1,0 +1,61 @@
+3:"$Sreact.fragment"
+4:"/kuma-mieru/_next/static/chunks/2ezg1ehutb05b.js"
+5:I[44376,["$4"],"default"]
+6:I[38256,["$4"],"default"]
+b:"/kuma-mieru/_next/static/chunks/26m16pzj08qz7.js"
+c:"/kuma-mieru/_next/static/chunks/1ozoxp4t_9fq_.js"
+d:"/kuma-mieru/_next/static/chunks/3m0xp0v5a4csw.js"
+e:"/kuma-mieru/_next/static/chunks/0dg0ts-s0z8e5.js"
+f:"/kuma-mieru/_next/static/chunks/1lumvw1sva8i-.js"
+10:"/kuma-mieru/_next/static/chunks/1l4nzeszoua51.js"
+11:"/kuma-mieru/_next/static/chunks/3ykf6aj968bi-.js"
+12:"/kuma-mieru/_next/static/chunks/1od7mvygh6mp0.js"
+13:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsPage"]
+14:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsTitle"]
+15:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsDescription"]
+16:"MarkdownCopyButton"
+17:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"$16"]
+18:"ViewOptionsPopover"
+19:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"$18"]
+1a:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsBody"]
+1b:I[75394,["$b","$c","$d","$e","$f","$10","$11","$12"],"Heading"]
+1c:I[29972,["$b","$c","$d","$e","$f","$10","$11","$12"],"default"]
+1d:I[47950,["$b","$c","$d","$e","$f","$10","$11","$12"],"default"]
+1e:I[48498,["$b","$c","$d","$e","$f","$10","$11","$12"],"ImageZoom"]
+2e:"ViewportBoundary"
+2f:I[47111,["$4"],"$2e"]
+30:"MetadataBoundary"
+31:I[47111,["$4"],"$30"]
+32:"$Sreact.suspense"
+8:X
+8:C
+9:X
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L13",null,{"toc":[{"depth":3,"url":"#fork-仓库","title":"Fork 仓库"},{"depth":3,"url":"#导入到-vercel","title":"导入到 Vercel"},{"depth":3,"url":"#设置根目录","title":"设置根目录"},{"depth":3,"url":"#添加环境变量","title":"添加环境变量"},{"depth":3,"url":"#部署","title":"部署"},{"depth":2,"url":"#修改环境变量","title":"修改环境变量"},{"depth":2,"url":"#同步上游更新","title":"同步上游更新"},{"depth":2,"url":"#仓库中的-vercel-配置","title":"仓库中的 Vercel 配置"}],"tableOfContent":{"style":"clerk","container":{"role":"navigation","aria-labelledby":"toc-title"}},"className":"sm:px-6 md:px-8 md:pt-8 xl:pt-8","children":[["$","$L14",null,{"className":"text-h1","children":"Vercel"}],["$","$L15",null,{"className":"mb-0 text-body text-fd-muted-foreground","children":"Fork 仓库，导入 Vercel，填写状态页 URL 后部署。这是推荐的部署方式。"}],["$","div",null,{"className":"flex flex-row flex-wrap items-center gap-2 border-b pb-6","children":[["$","$L17",null,{"markdownUrl":"/kuma-mieru/md/zh/deploy/vercel/content.md"}],["$","$L19",null,{"markdownUrl":"/kuma-mieru/md/zh/deploy/vercel/content.md","githubUrl":"https://github.com/Alice39s/kuma-mieru/blob/main/apps/docs/content/docs/deploy/vercel.mdx"}]]}],["$","$L1a",null,{"children":[["$","p",null,{"children":"Vercel 是推荐的部署方式。整个流程在网页上完成，不需要自己的服务器。"}],"\n",["$","div",null,{"className":"fd-steps","children":[["$","div",null,{"className":"fd-step","children":[["$","$L1b",null,{"as":"h3","id":"fork-仓库","children":"Fork 仓库"}],["$","ol",null,{"children":["\n",["$","li",null,{"children":["打开本仓库的 ",["$","$L1c",null,{"children":"Fork 页面","href":"https://github.com/Alice39s/kuma-mieru/fork"}],"。"]}],"\n",["$","li",null,{"children":["点击 ",["$","code",null,{"children":"Create fork"}],"。"]}],"\n"]}],["$","div",null,{"className":"my-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2.5 gap-y-1 rounded-(--radius-card) border px-3.5 py-3 text-sm text-fd-card-foreground [&>svg]:row-span-2 [&>svg]:size-4 [&>svg]:translate-y-0.5 bg-fd-card [&>svg]:text-fd-primary ","children":[["$","$L1d",null,{"icon":{"name":"info","size":24,"node":[["circle",{"cx":"12","cy":"12","r":"10","key":"1mglay"}],["path",{"d":"M12 16v-4","key":"1dtifu"}],["path",{"d":"M12 8h.01","key":"e9boi3"}]]},"aria-hidden":"true"}],"$undefined",["$","div",null,{"className":"col-start-2 prose-no-margin text-fd-muted-foreground","children":["$","p",null,{"children":"请保持 Fork 的仓库为公开仓库，否则后续可能无法快速同步上游的更新。所有配置都通过环境变量设置，Fork\n的仓库中不会包含你的任何配置信息。"}]}]]}]]}],["$","div",null,{"className":"fd-step","children":[["$","$L1b",null,{"as":"h3","id":"导入到-vercel","children":"导入到 Vercel"}],["$","p",null,{"children":["打开 ",["$","$L1c",null,{"children":"vercel.com/new","href":"https://vercel.com/new"}],"，找到刚才 Fork 的仓库，点击 ",["$","code",null,{"children":"Import"}],"。"]}],["$","p",null,{"children":["$","$L1e",null,{"alt":"导入仓库","src":{"src":"/kuma-mieru/_next/static/media/vercel-import.3ti7u11pp7bhz.png","width":934,"height":1030,"blurWidth":7,"blurHeight":8,"blurDataURL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAICAIAAAC6ZnJRAAAAfUlEQVR42kWOOw4DIRBD6TfADN8CIujgEqyUEySg3P8sMVtkXY3sZ2uEtTallHMOITwuHcchnHNwY4zeeyZSSiEQWmsEaFjmJ9PrPGut20UXIBEFou/n3XsXqIDddWZjzJyztXa7YBGstTYrpQSCWUwhGGOUUvauuYTj/9kPWrQP7ZCGuBQAAAAASUVORK5CYII="}}]}]]}],["$","div",null,{"className":"fd-step","children":[["$","$L1b",null,{"as":"h3","id":"设置根目录","children":"设置根目录"}],["$","p",null,{"children":["在项目配置页把 ",["$","code",null,{"children":"Root Directory"}]," 设为 ",["$","code",null,{"children":"apps/web"}],"。Web 应用和它的 ",["$","code",null,{"children":"vercel.json"}]," 都在这个目录中。"]}]]}],["$","div",null,{"className":"fd-step","children":[["$","$L1b",null,{"as":"h3","id":"添加环境变量","children":"添加环境变量"}],["$","p",null,{"children":["展开 ",["$","code",null,{"children":"Environment Variables"}],"，添加 ",["$","code",null,{"children":"UPTIME_KUMA_URLS"}],"，值为 Uptime Kuma 状态页的完整 URL。多个状态页用 ",["$","code",null,{"children":"|"}]," 分隔。"]}],["$","p",null,{"children":["$","$L1e",null,{"alt":"添加环境变量","src":{"src":"/kuma-mieru/_next/static/media/vercel-deploy.3qjqt-qnk-c4f.png","width":1312,"height":1140,"blurWidth":8,"blurHeight":7,"blurDataURL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAHCAIAAAC6O5sJAAAAhUlEQVR42lWMQQrDIBBFPYA6M9FRIxUSkNRCVu68T2Oh9z9Ajbs+/uLzH3yhtTbG6H+klAIArLVEFBAt4SiIqJQSwzvnIvMD4d4mt2ClkrXJLCtAXCgSrQg8rgLo5L0jYsQUwogn8moI585SSs7PnI98nPv+2rbALGqtffKefK/r03tr7QdlXRPXIuG0iAAAAABJRU5ErkJggg=="}}]}],"$L1f"]}],"$L20"]}],"\n","$L21","\n","$L22","\n","$L23","\n","$L24","\n","$L25","\n","$L26","\n","$L27"]}],"$L28"]}],["$L29","$L2a","$L2b"],"$L2c"]}],"p":"$@2d","v":null,"s":"$9"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"deploy/vercel","s":["llms-full.txt","llms.txt"]},"h":65600,"d":{"r":["$","$3","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":"$8","s":"$9"},"c":"$Qa"}]]
+1:[["children",{"s":{"n":"lang","t":"d","k":"zh","s":["api","llms.txt","md","og"]},"h":196656,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131152,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L2f",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L31",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$32",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Vercel · Kuma Mieru 文档"}],["$","meta","1",{"name":"description","content":"Fork 仓库，导入 Vercel，填写状态页 URL 后部署。这是推荐的部署方式。"}],["$","link","2",{"rel":"canonical","href":"https://alice39s.github.io/kuma-mieru/zh/deploy/vercel/"}],["$","link","3",{"rel":"alternate","hrefLang":"zh-CN","href":"https://alice39s.github.io/kuma-mieru/zh/deploy/vercel/"}],["$","link","4",{"rel":"alternate","hrefLang":"en","href":"https://alice39s.github.io/kuma-mieru/en/deploy/vercel/"}],["$","meta","5",{"property":"og:title","content":"Vercel"}],["$","meta","6",{"property":"og:description","content":"Fork 仓库，导入 Vercel，填写状态页 URL 后部署。这是推荐的部署方式。"}],["$","meta","7",{"property":"og:url","content":"https://alice39s.github.io/kuma-mieru/zh/deploy/vercel/"}],["$","meta","8",{"property":"og:site_name","content":"Kuma Mieru 文档"}],["$","meta","9",{"property":"og:locale","content":"zh-CN"}],["$","meta","10",{"property":"og:image","content":"https://alice39s.github.io/kuma-mieru/og/zh/deploy/vercel/image.png"}],["$","meta","11",{"property":"og:image:width","content":"1200"}],["$","meta","12",{"property":"og:image:height","content":"630"}],["$","meta","13",{"property":"og:type","content":"article"}],["$","meta","14",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","15",{"name":"twitter:title","content":"Vercel"}],["$","meta","16",{"name":"twitter:description","content":"Fork 仓库，导入 Vercel，填写状态页 URL 后部署。这是推荐的部署方式。"}],["$","meta","17",{"name":"twitter:image","content":"https://alice39s.github.io/kuma-mieru/og/zh/deploy/vercel/image.png"}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@33","v":null,"s":"$9"}},"a":"$@34","u":"$@35","b":"K5jyJXwthbGVOt8vX6C0f"}
+36:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"PageLastUpdate"]
+37:I[47111,["$4"],"OutletBoundary"]
+:HL["/kuma-mieru/_next/static/chunks/0iaxnelvtqw2u.css","style"]
+1f:["$","div",null,{"className":"my-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2.5 gap-y-1 rounded-(--radius-card) border px-3.5 py-3 text-sm text-fd-card-foreground [&>svg]:row-span-2 [&>svg]:size-4 [&>svg]:translate-y-0.5 border-fd-warning/40 bg-fd-warning/10 [&>svg]:text-fd-warning ","children":[["$","$L1d",null,{"icon":{"name":"triangle-alert","size":24,"node":[["path",{"d":"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3","key":"wmoenq"}],["path",{"d":"M12 9v4","key":"juzpu7"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["alert-triangle"]},"aria-hidden":"true"}],"$undefined",["$","div",null,{"className":"col-start-2 prose-no-margin text-fd-muted-foreground","children":["$","p",null,{"children":["必须设置 ",["$","code",null,{"children":"UPTIME_KUMA_URLS"}],"（推荐）或旧版的 ",["$","code",null,{"children":"UPTIME_KUMA_BASE_URL"}]," 加 ",["$","code",null,{"children":"PAGE_ID"}],"。两者都没有设置，或者 URL 中没有 ",["$","code",null,{"children":"/status/<页面 ID>"}]," 时，",["$","code",null,{"children":"generate"}]," 脚本报错退出，Vercel 构建失败。其他变量见",["$","$L1c",null,{"children":"环境变量","href":"/zh/configuration/environment/"}],"。"]}]}]]}]
+20:["$","div",null,{"className":"fd-step","children":[["$","$L1b",null,{"as":"h3","id":"部署","children":"部署"}],["$","p",null,{"children":["点击 ",["$","code",null,{"children":"Deploy"}],"。"]}]]}]
+21:["$","$L1b",null,{"as":"h2","id":"修改环境变量","children":"修改环境变量"}]
+22:["$","p",null,{"children":["Vercel 在构建时运行 ",["$","code",null,{"children":"generate"}]," 脚本，把环境变量和状态页信息写入生成的配置。在 Vercel 修改环境变量后，重新部署项目才会生效。"]}]
+23:["$","$L1b",null,{"as":"h2","id":"同步上游更新","children":"同步上游更新"}]
+24:["$","ol",null,{"children":["\n",["$","li",null,{"children":["打开你 Fork 的 GitHub 仓库，点击 ",["$","code",null,{"children":"Sync fork"}],"。"]}],"\n",["$","li",null,{"children":["点击 ",["$","code",null,{"children":"Update branch"}],"，同步上游仓库的最新代码。"]}],"\n"]}]
+25:["$","$L1b",null,{"as":"h2","id":"仓库中的-vercel-配置","children":"仓库中的 Vercel 配置"}]
+26:["$","p",null,{"children":[["$","code",null,{"children":"apps/web/vercel.json"}]," 为首页 ",["$","code",null,{"children":"/"}]," 设置以下响应头："]}]
+27:["$","div",null,{"className":"relative overflow-auto prose-no-margin my-6","tabIndex":0,"children":["$","table",null,{"children":[["$","thead",null,{"children":["$","tr",null,{"children":[["$","th",null,{"className":"whitespace-nowrap","children":"响应头"}],["$","th",null,{"className":"whitespace-nowrap","children":"值"}]]}]}],["$","tbody",null,{"children":[["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"Cache-Control"}]}],["$","td",null,{"children":["$","code",null,{"children":"public, max-age=300, stale-while-revalidate=300"}]}]]}],["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"X-XSS-Protection"}]}],["$","td",null,{"children":["$","code",null,{"children":"1; mode=block"}]}]]}],["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"X-Content-Type-Options"}]}],["$","td",null,{"children":["$","code",null,{"children":"nosniff"}]}]]}]]}]]}]}]
+28:["$","$L36",null,{"date":"$D2026-10-24T20:50:09.000Z"}]
+29:["$","link","0",{"rel":"stylesheet","href":"/kuma-mieru/_next/static/chunks/0iaxnelvtqw2u.css","precedence":"next"}]
+2a:["$","script","script-0",{"src":"/kuma-mieru/_next/static/chunks/3ykf6aj968bi-.js","async":true}]
+2b:["$","script","script-1",{"src":"/kuma-mieru/_next/static/chunks/1od7mvygh6mp0.js","async":true}]
+2c:["$","$L37",null,{"children":["$","$32",null,{"name":"Next.MetadataOutlet","children":"$@38"}]}]
+35:true
+9:300
+38:null
+9:C
+34:0
+7:"$undefined"
+33:"$undefined"
+2d:"$undefined"

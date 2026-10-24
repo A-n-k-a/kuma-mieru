@@ -1,0 +1,206 @@
+# Docker (https://alice39s.github.io/kuma-mieru/en/deploy/docker/)
+
+<Callout type="info">Docker deployment is in Beta.</Callout>
+
+The image is `ghcr.io/alice39s/kuma-mieru:1`. It supports `linux/amd64` and `linux/arm64`. The service in the container listens on port 3000. The examples below map it to port 3883 on the host. For the meaning of the tags, see [Versioning](https://alice39s.github.io/kuma-mieru/en/guides/versioning/).
+
+## Start [#start]
+
+<Tabs items={['Docker Compose', 'docker run']}>
+<Tab value="Docker Compose">
+
+Docker Compose is the recommended method.
+
+<Steps>
+<Step>
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Alice39s/kuma-mieru.git
+cd kuma-mieru
+```
+
+</Step>
+<Step>
+
+`docker-compose.yml` reads the `.env` file in the repository root. Copy the template of the web application:
+
+```bash
+cp apps/web/.env.example .env
+```
+
+</Step>
+<Step>
+
+Edit `.env` and set at least `UPTIME_KUMA_URLS`. For the other variables, see [Environment Variables](https://alice39s.github.io/kuma-mieru/en/configuration/environment/).
+
+```ini title=".env"
+UPTIME_KUMA_URLS=https://example.kuma-mieru.invalid/status/your-status-page-id
+```
+
+The template lines `KUMA_MIERU_TITLE`, `KUMA_MIERU_DESCRIPTION` and `KUMA_MIERU_ICON` replace the title, description and icon of the status page. Change the title and the description to the values that you need. To keep the icon of the status page, delete the `KUMA_MIERU_ICON` line.
+
+</Step>
+<Step>
+
+Start the service:
+
+```bash
+docker compose up -d
+```
+
+The service is available at `http://0.0.0.0:3883`.
+
+</Step>
+<Step>
+
+Show the logs:
+
+```bash
+docker compose logs -f
+```
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="Missing variables in .env become empty values">
+The `environment` section of `docker-compose.yml` lists the status page addresses and the `KUMA_MIERU_*` variables. If one of them is missing from `.env`, it goes to the container as an empty value and replaces the built-in default of the image:
+
+- If neither `UPTIME_KUMA_URLS` nor `UPTIME_KUMA_BASE_URL` with `PAGE_ID` is set, the configuration script stops with an error and the container start stops.
+- If `KUMA_MIERU_SHOW_STAR_BUTTON` is missing, the Star button is hidden. To show it, write `KUMA_MIERU_SHOW_STAR_BUTTON=true`.
+- If `KUMA_MIERU_TITLE` or `KUMA_MIERU_DESCRIPTION` is missing, the browser tab title and the page description use the Kuma Mieru defaults.
+- If `KUMA_MIERU_ICON` is missing, the icon of the status page is used.
+
+</Callout>
+
+</Tab>
+<Tab value="docker run">
+
+<Steps>
+<Step>
+
+Pull the image from GHCR:
+
+```bash
+docker pull ghcr.io/alice39s/kuma-mieru:1
+```
+
+</Step>
+<Step>
+
+Start the container. Give the environment variables with `-e`, and set `UPTIME_KUMA_URLS` first:
+
+```bash
+docker run -d \
+  --name kuma-mieru \
+  -p 3883:3000 \
+  -e UPTIME_KUMA_URLS="https://example.kuma-mieru.invalid/status/default|https://example.kuma-mieru.invalid/status/secondary" \
+  -e KUMA_MIERU_TITLE="Kuma Mieru" \
+  ghcr.io/alice39s/kuma-mieru:1
+```
+
+If `UPTIME_KUMA_URLS` is not set, the container connects to the built-in demo status page of the image. For the other built-in values, see [Built-in defaults of the image](#built-in-defaults-of-the-image).
+
+</Step>
+</Steps>
+
+If you have many variables, write them into a `.env` file. Then use `--env-file .env` instead of many `-e` options. The `--env-file` option of the Docker CLI does not remove the quotes around a value. If you use `apps/web/.env.example` from the repository as the template, remove the quotes first. For example, change `KUMA_MIERU_TITLE="Kuma Mieru"` to `KUMA_MIERU_TITLE=Kuma Mieru`.
+
+</Tab>
+</Tabs>
+
+## Built-in defaults of the image [#built-in-defaults-of-the-image]
+
+The image sets defaults for these variables. When you start the container with `docker run`, each variable that you do not set with `-e` or `--env-file` uses its default:
+
+| Variable                      | Default                                              |
+| ----------------------------- | ---------------------------------------------------- |
+| `UPTIME_KUMA_URLS`            | Empty                                                |
+| `UPTIME_KUMA_BASE_URL`        | `https://whimsical-sopapillas-78abba.netlify.app`    |
+| `PAGE_ID`                     | `demo`                                               |
+| `KUMA_MIERU_TITLE`            | `Uptime Kuma`                                        |
+| `KUMA_MIERU_DESCRIPTION`      | `A beautiful and modern uptime monitoring dashboard` |
+| `KUMA_MIERU_ICON`             | Empty                                                |
+| `KUMA_MIERU_EDIT_THIS_PAGE`   | `false`                                              |
+| `KUMA_MIERU_SHOW_STAR_BUTTON` | `true`                                               |
+| `ALLOW_EMBEDDING`             | `false`                                              |
+
+- If `UPTIME_KUMA_URLS` is not set, the container uses the built-in `UPTIME_KUMA_BASE_URL` and `PAGE_ID` and connects to the demo status page.
+- The browser tab title and the page description use the environment variables or the built-in values of the image. They do not use the values of the status page. Set `KUMA_MIERU_TITLE` and `KUMA_MIERU_DESCRIPTION` to the values that you need. The navigation bar and the multi-page tabs still show the live title of the Uptime Kuma status page first. See [Environment Variables](https://alice39s.github.io/kuma-mieru/en/configuration/environment/).
+- The built-in `KUMA_MIERU_ICON` is empty, so the icon of the status page is used.
+- With the `docker-compose.yml` of the repository, the variables in its `environment` section replace these defaults. See the Docker Compose notes above.
+
+## Change the configuration [#change-the-configuration]
+
+Each time the container starts, it runs the configuration scripts first and then starts the service. After you edit `.env`, recreate the container to apply the new environment variables:
+
+```bash
+docker compose up -d --force-recreate
+```
+
+If you use `docker run`, remove the old container. Then run `docker run` again with the new options:
+
+```bash
+docker stop kuma-mieru
+docker rm kuma-mieru
+```
+
+## Update the image [#update-the-image]
+
+<Tabs items={['Docker Compose', 'docker run']}>
+<Tab value="Docker Compose">
+
+Run these commands in the repository directory. `git pull` gets the latest `docker-compose.yml`:
+
+```bash
+git pull
+docker compose pull
+docker compose up -d
+```
+
+</Tab>
+<Tab value="docker run">
+
+Remove the old container and pull the new image:
+
+```bash
+docker stop kuma-mieru
+docker rm kuma-mieru
+docker pull ghcr.io/alice39s/kuma-mieru:1
+```
+
+Then run `docker run` again with the same options as before.
+
+</Tab>
+</Tabs>
+
+## Health check [#health-check]
+
+The image has a health check endpoint at `/api/health`. The Dockerfile and `docker-compose.yml` both use `curl -f` to request `http://localhost:3000/api/health` in the container every 30 seconds, with a timeout of 3 seconds. `docker-compose.yml` marks the container as unhealthy after 3 failures in a row.
+
+## Build the image yourself [#build-the-image-yourself]
+
+If the pulled image has problems, build the image locally. Edit `docker-compose.yml`: comment out the `image` line and uncomment the `build` line:
+
+```yaml title="docker-compose.yml"
+services:
+  kuma-mieru:
+    # image: ghcr.io/alice39s/kuma-mieru:1
+    build: .
+```
+
+Then build and start:
+
+```bash
+docker compose up -d --build
+```
+
+The Dockerfile has two stages:
+
+| Stage   | Content                                                                                                                                                                                 |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build   | Based on `node:26.12.1-alpine`. Installs `@kuma-mieru/web` and its workspace dependencies with Bun 1.4.4, then runs `bun run --cwd apps/web build`                                      |
+| Runtime | Based on `node:26.12.1-alpine`. Runs as the non-root user `nextjs` with `dumb-init` as PID 1. At start, `tsx` runs the configuration scripts, then Node.js starts the standalone server |
+
+`STRICT_IMAGE_REMOTE_PATTERNS` applies only when you build the image. See [Environment Variables](https://alice39s.github.io/kuma-mieru/en/configuration/environment/#strict_image_remote_patterns).

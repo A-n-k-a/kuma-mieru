@@ -1,0 +1,69 @@
+# 常见问题 (https://alice39s.github.io/kuma-mieru/zh/guides/faq/)
+
+<Accordions type="single">
+<Accordion title="为什么 Kuma Mieru 显示的时间和 Uptime Kuma 不一致？">
+
+Uptime Kuma 后端传给前端的时间不带时区信息。为了便于开发，Kuma Mieru 统一把时间按 UTC+0 显示。
+
+请在 Uptime Kuma 的设置中把 `Display Timezone`（显示时区）改为任意 UTC+0 时区。
+
+</Accordion>
+<Accordion title="支持 Uptime Robot、Better Stack 或其他监控数据源吗？">
+
+Kuma Mieru 的设计目标是弥补 Uptime Kuma 的不足，所以 v1 暂不考虑支持其他监控数据源。v2 可能会考虑接入 Uptime Robot、Better Stack 等监控工具的 API。
+
+</Accordion>
+<Accordion title="构建失败，或 Docker 容器启动后立即退出">
+
+`generate` 脚本在以下情况报错退出。平台构建因此失败；Docker 容器的启动命令中止，使用仓库的 `docker-compose.yml` 时，容器按 `restart: unless-stopped` 反复重启。
+
+- 既没有设置 `UPTIME_KUMA_URLS`，也没有设置 `UPTIME_KUMA_BASE_URL` 和 `PAGE_ID`。日志中的报错是 `UPTIME_KUMA_BASE_URL is required (or set UPTIME_KUMA_URLS)` 或 `PAGE_ID is required (or set UPTIME_KUMA_URLS)`。
+- `UPTIME_KUMA_URLS` 中有 URL 不包含 `/status/<页面 ID>`。日志中的报错以 `Expected status page URL like` 开头。
+- 两个来自不同实例的状态页使用了同一个页面 ID，见下一条。
+
+用 `docker run` 启动且没有设置 `UPTIME_KUMA_URLS` 时，容器连接镜像内置的 demo 状态页，见 [Docker](https://alice39s.github.io/kuma-mieru/zh/deploy/docker/)。状态页地址的写法见[连接 Uptime Kuma](https://alice39s.github.io/kuma-mieru/zh/configuration/uptime-kuma/)。
+
+</Accordion>
+<Accordion title="配置生成时报错 Duplicate page id">
+
+`UPTIME_KUMA_URLS` 中两个来自不同 Uptime Kuma 实例的状态页使用了同一个页面 ID。页面 ID 在所有实例之间必须唯一，请在其中一个实例中给状态页换一个页面 ID。
+
+</Accordion>
+<Accordion title="修改环境变量后页面没有变化">
+
+配置在构建时或容器启动时生成。在 Vercel、Netlify 或 EdgeOne Pages 修改变量后，需要重新部署。使用 Docker Compose 时，运行 `docker compose up -d --force-recreate`。详见[环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/)。
+
+</Accordion>
+<Accordion title="Fork 的仓库会泄露我的配置吗？">
+
+不会。所有配置都通过部署平台的环境变量设置，不写入仓库。请保持 Fork 为公开仓库，否则后续可能无法快速同步上游的更新。
+
+</Accordion>
+<Accordion title="Netlify 构建报错 Could not patch functions config manifest file">
+
+Netlify 的 Next.js 适配器 `@netlify/plugin-nextjs` 5.16.4 在打包 Node.js Proxy（`proxy.ts`）时可能报出这个错误。请等待适配器发布修复版本，再重新部署。
+
+</Accordion>
+<Accordion title="Uptime Kuma 使用自签名证书怎么办？">
+
+在受信任的环境中，可以设置 `ALLOW_INSECURE_TLS=true`，让服务端在运行时跳过 Uptime Kuma 的 HTTPS 证书校验。这样做有安全风险。
+
+`generate` 脚本读取状态页元信息的请求不受这个变量影响，仍然校验证书，所以标题、描述和图标使用环境变量的值或默认值。可以用 `KUMA_MIERU_TITLE` 和 `KUMA_MIERU_DESCRIPTION` 设置标题和描述，用 `KUMA_MIERU_ICON` 指向 Uptime Kuma 上的图标。详见 [ALLOW_INSECURE_TLS](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/#allow_insecure_tls)。
+
+</Accordion>
+<Accordion title="能把仪表盘嵌入其他网站的 iframe 吗？">
+
+可以。默认禁止嵌入。用 `ALLOW_EMBEDDING` 列出允许嵌入的源，例如 `ALLOW_EMBEDDING=example.com`。详见 [ALLOW_EMBEDDING](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/#allow_embedding)。
+
+</Accordion>
+<Accordion title="远程图片无法加载">
+
+默认值 `STRICT_IMAGE_REMOTE_PATTERNS=false` 允许所有远程图片域名。设为 `true` 后，白名单中只有 Uptime Kuma 基础 URL 和 `KUMA_MIERU_ICON` 的域名，其他域名的图片无法加载。详见 [STRICT_IMAGE_REMOTE_PATTERNS](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/#strict_image_remote_patterns)。
+
+</Accordion>
+<Accordion title="可以部署到 Cloudflare Workers 吗？">
+
+暂不支持，请改用 Vercel 或 Netlify。仓库中保留的 Cloudflare 配置见 [Cloudflare Workers](https://alice39s.github.io/kuma-mieru/zh/deploy/cloudflare/)。
+
+</Accordion>
+</Accordions>

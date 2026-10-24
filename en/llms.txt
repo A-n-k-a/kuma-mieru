@@ -1,0 +1,20 @@
+# Kuma Mieru Docs
+
+- [Overview](https://alice39s.github.io/kuma-mieru/en/): Learn what Kuma Mieru does and find where to start with deployment and configuration.
+- Deploy
+  - [Choose a Deployment Method](https://alice39s.github.io/kuma-mieru/en/deploy/): Compare the support status of each deployment method and how configuration changes apply, then select one.
+  - [Vercel](https://alice39s.github.io/kuma-mieru/en/deploy/vercel/): Fork the repository, import it to Vercel, add the status page URL and deploy. This is the recommended method.
+  - [Netlify](https://alice39s.github.io/kuma-mieru/en/deploy/netlify/): Deploy Kuma Mieru to Netlify with the Deploy button or by importing your fork.
+  - [EdgeOne Pages](https://alice39s.github.io/kuma-mieru/en/deploy/edgeone/): Import your fork to EdgeOne Pages and deploy Kuma Mieru.
+  - [Cloudflare Workers](https://alice39s.github.io/kuma-mieru/en/deploy/cloudflare/): Cloudflare Workers deployment is not supported yet. This page lists the Cloudflare configuration and scripts in the repository.
+  - [Docker](https://alice39s.github.io/kuma-mieru/en/deploy/docker/): Run the Kuma Mieru GHCR image on your own server with Docker Compose or docker run.
+  - [Run from Source](https://alice39s.github.io/kuma-mieru/en/deploy/source/): Start a development server from source with Bun and Node.js, or build and run the production version.
+- Configuration
+  - [Environment Variables](https://alice39s.github.io/kuma-mieru/en/configuration/environment/): Lists all environment variables that Kuma Mieru reads, with their defaults and when they apply.
+  - [Connect Uptime Kuma](https://alice39s.github.io/kuma-mieru/en/configuration/uptime-kuma/): Create a status page in Uptime Kuma, set the display time zone, and give the status page URL to Kuma Mieru.
+- Guides
+  - [Versioning](https://alice39s.github.io/kuma-mieru/en/guides/versioning/): Explains the Docker image tags, the compatibility scope of v1 and the release process, so you can select a tag.
+  - [FAQ](https://alice39s.github.io/kuma-mieru/en/guides/faq/): Causes and fixes for time offsets, configuration changes that do not apply, build errors, iframe embedding and more.
+- Development
+  - [Contributing](https://alice39s.github.io/kuma-mieru/en/development/): Set up a local development environment, and learn the repository layout, the common commands and the pull request process.
+  - [Design Rules](https://alice39s.github.io/kuma-mieru/en/development/design/): Layout, colour, component and preview image rules of the docs site. Read them before you change the interface.

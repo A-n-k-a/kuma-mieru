@@ -1,0 +1,27 @@
+1:"$Sreact.fragment"
+2:"/kuma-mieru/_next/static/chunks/1znw6hp1cx52e.js"
+3:I[67430,["$2"],""]
+7:I[44376,["$2"],"default"]
+8:I[38256,["$2"],"default"]
+c:I[47111,["$2"],"OutletBoundary"]
+d:"$Sreact.suspense"
+10:"ViewportBoundary"
+11:I[47111,["$2"],"$10"]
+12:"MetadataBoundary"
+13:I[47111,["$2"],"$12"]
+:HL["/kuma-mieru/_next/static/chunks/2i6gqgc6oom2b.css","style"]
+5:X
+a:X
+a:C
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[null,null,["$","$Lc",null,{"children":["$","$d",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]]}],"p":"$@f","v":null,"s":"$5"}}]]
+6:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L7",null,{"parallelRouterKey":"children","template":["$","$L8",null,{}]}]]}],"p":"$@9","v":"$a","s":"$5"},"c":"$Qb"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/kuma-mieru/_next/static/chunks/2i6gqgc6oom2b.css","precedence":"next"}],["$","script","script-0",{"src":"/kuma-mieru/_next/static/chunks/1znw6hp1cx52e.js","async":true}]],["$","html",null,{"lang":"zh-CN","className":"HVPUxq_variable XGS9Ea_variable","suppressHydrationWarning":true,"children":["$","body",null,{"className":"flex min-h-screen flex-col bg-fd-background font-sans text-fd-foreground","children":["$","main",null,{"className":"mx-auto flex w-full max-w-xl grow flex-col justify-center gap-6 px-6 py-16","children":[["$","div",null,{"aria-hidden":"true","className":"km-heartbeat ","children":[["$","span","0-good",{"className":"bg-success/80"}],["$","span","1-up",{"className":"bg-success"}],["$","span","2-up",{"className":"bg-success"}],["$","span","3-up",{"className":"bg-success"}],["$","span","4-up",{"className":"bg-success"}],["$","span","5-up",{"className":"bg-success"}],["$","span","6-down",{"className":"bg-fd-error"}],["$","span","7-up",{"className":"bg-success"}],["$","span","8-up",{"className":"bg-success"}],["$","span","9-up",{"className":"bg-success"}],["$","span","10-good",{"className":"bg-success/80"}],["$","span","11-up",{"className":"bg-success"}],["$","span","12-up",{"className":"bg-success"}],["$","span","13-up",{"className":"bg-success"}],["$","span","14-maintenance",{"className":"bg-fd-primary/60"}],["$","span","15-up",{"className":"bg-success"}],["$","span","16-up",{"className":"bg-success"}],["$","span","17-up",{"className":"bg-success"}],["$","span","18-up",{"className":"bg-success"}],["$","span","19-fair",{"className":"bg-success/60"}],["$","span","20-up",{"className":"bg-success"}],["$","span","21-up",{"className":"bg-success"}],["$","span","22-up",{"className":"bg-success"}],["$","span","23-up",{"className":"bg-success"}]]}],["$","div",null,{"className":"flex flex-col gap-2","children":[["$","p",null,{"className":"text-meta text-fd-muted-foreground","children":"404"}],["$","h1",null,{"className":"text-h1","children":["页面不存在"," · ",["$","span",null,{"lang":"en","children":"Page not found"}]]}],["$","p",null,{"className":"text-body text-fd-muted-foreground","children":"链接可能已经失效，或者这一页换了位置。"}],["$","p",null,{"lang":"en","className":"text-body text-fd-muted-foreground","children":"The link may be outdated, or the page has moved."}]]}],["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L3",null,{"href":"/zh","className":"rounded-(--radius) bg-fd-primary px-4 py-2 text-sm font-medium text-fd-primary-foreground","children":"返回文档首页"}],["$","$L3",null,{"href":"/en","lang":"en","className":"rounded-(--radius) border px-4 py-2 text-sm font-medium transition-colors hover:bg-fd-accent","children":"Back to the docs"}]]}]]}]}]}]]}],"p":"$@4","v":null,"s":"$5"},"c":"$Q6"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L11",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L13",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$d",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"404 · Kuma Mieru"}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@14","v":null,"s":"$5"}},"a":"$@15","u":"$@16","b":"K5jyJXwthbGVOt8vX6C0f"}
+e:null
+5:300
+16:true
+5:C
+15:0
+9:"$undefined"
+4:"$undefined"
+14:"$undefined"
+f:"$undefined"

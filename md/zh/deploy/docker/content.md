@@ -1,0 +1,206 @@
+# Docker (https://alice39s.github.io/kuma-mieru/zh/deploy/docker/)
+
+<Callout type="info">Docker 部署目前处于 Beta 阶段。</Callout>
+
+镜像地址是 `ghcr.io/alice39s/kuma-mieru:1`，支持 `linux/amd64` 和 `linux/arm64`。容器内的服务监听 3000 端口，下面的示例把它映射到主机的 3883 端口。标签的含义见[版本策略](https://alice39s.github.io/kuma-mieru/zh/guides/versioning/)。
+
+## 启动 [#启动]
+
+<Tabs items={['Docker Compose', 'docker run']}>
+<Tab value="Docker Compose">
+
+推荐使用 Docker Compose。
+
+<Steps>
+<Step>
+
+克隆仓库：
+
+```bash
+git clone https://github.com/Alice39s/kuma-mieru.git
+cd kuma-mieru
+```
+
+</Step>
+<Step>
+
+`docker-compose.yml` 读取仓库根目录的 `.env`。从 Web 应用的模板复制一份：
+
+```bash
+cp apps/web/.env.example .env
+```
+
+</Step>
+<Step>
+
+编辑 `.env`，至少设置 `UPTIME_KUMA_URLS`。其他变量见[环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/)。
+
+```ini title=".env"
+UPTIME_KUMA_URLS=https://example.kuma-mieru.invalid/status/your-status-page-id
+```
+
+模板中的 `KUMA_MIERU_TITLE`、`KUMA_MIERU_DESCRIPTION` 和 `KUMA_MIERU_ICON` 三行会覆盖状态页自身的标题、描述和图标。把标题和描述改成你需要的值。想沿用状态页的图标时，删掉 `KUMA_MIERU_ICON` 这一行。
+
+</Step>
+<Step>
+
+启动服务：
+
+```bash
+docker compose up -d
+```
+
+服务运行在 `http://0.0.0.0:3883`。
+
+</Step>
+<Step>
+
+查看日志：
+
+```bash
+docker compose logs -f
+```
+
+</Step>
+</Steps>
+
+<Callout type="warn" title=".env 中缺少的变量以空值传入">
+`docker-compose.yml` 的 `environment` 列出了状态页地址和 `KUMA_MIERU_*` 变量。`.env` 中缺少其中某个变量时，它以空值传入容器，覆盖镜像内置的默认值：
+
+- 既没有 `UPTIME_KUMA_URLS`，也没有 `UPTIME_KUMA_BASE_URL` 和 `PAGE_ID` 时，配置生成脚本报错，容器启动中止。
+- 缺少 `KUMA_MIERU_SHOW_STAR_BUTTON` 时，Star 按钮隐藏。需要显示时，写上 `KUMA_MIERU_SHOW_STAR_BUTTON=true`。
+- 缺少 `KUMA_MIERU_TITLE` 或 `KUMA_MIERU_DESCRIPTION` 时，浏览器标签页的标题和页面描述使用 Kuma Mieru 的默认值。
+- 缺少 `KUMA_MIERU_ICON` 时，使用状态页自身的图标。
+
+</Callout>
+
+</Tab>
+<Tab value="docker run">
+
+<Steps>
+<Step>
+
+从 GHCR 拉取镜像：
+
+```bash
+docker pull ghcr.io/alice39s/kuma-mieru:1
+```
+
+</Step>
+<Step>
+
+启动容器，用 `-e` 传入环境变量，优先设置 `UPTIME_KUMA_URLS`：
+
+```bash
+docker run -d \
+  --name kuma-mieru \
+  -p 3883:3000 \
+  -e UPTIME_KUMA_URLS="https://example.kuma-mieru.invalid/status/default|https://example.kuma-mieru.invalid/status/secondary" \
+  -e KUMA_MIERU_TITLE="Kuma Mieru" \
+  ghcr.io/alice39s/kuma-mieru:1
+```
+
+没有设置 `UPTIME_KUMA_URLS` 时，容器连接镜像内置的 demo 状态页。镜像的其他内置值见[镜像内置的默认值](#镜像内置的默认值)。
+
+</Step>
+</Steps>
+
+变量较多时，可以把它们写进 `.env` 文件，再用 `--env-file .env` 代替多个 `-e` 参数。Docker CLI 的 `--env-file` 不去掉值两边的引号。以仓库中的 `apps/web/.env.example` 为模板时，先去掉值两边的引号，例如把 `KUMA_MIERU_TITLE="Kuma Mieru"` 改为 `KUMA_MIERU_TITLE=Kuma Mieru`。
+
+</Tab>
+</Tabs>
+
+## 镜像内置的默认值 [#镜像内置的默认值]
+
+镜像为以下变量设置了默认值。用 `docker run` 启动时，没有通过 `-e` 或 `--env-file` 设置的变量使用这些值：
+
+| 变量                          | 默认值                                               |
+| ----------------------------- | ---------------------------------------------------- |
+| `UPTIME_KUMA_URLS`            | 空                                                   |
+| `UPTIME_KUMA_BASE_URL`        | `https://whimsical-sopapillas-78abba.netlify.app`    |
+| `PAGE_ID`                     | `demo`                                               |
+| `KUMA_MIERU_TITLE`            | `Uptime Kuma`                                        |
+| `KUMA_MIERU_DESCRIPTION`      | `A beautiful and modern uptime monitoring dashboard` |
+| `KUMA_MIERU_ICON`             | 空                                                   |
+| `KUMA_MIERU_EDIT_THIS_PAGE`   | `false`                                              |
+| `KUMA_MIERU_SHOW_STAR_BUTTON` | `true`                                               |
+| `ALLOW_EMBEDDING`             | `false`                                              |
+
+- 没有设置 `UPTIME_KUMA_URLS` 时，容器使用内置的 `UPTIME_KUMA_BASE_URL` 和 `PAGE_ID`，连接 demo 状态页。
+- 浏览器标签页的标题和页面描述使用环境变量或镜像内置的值，不使用状态页自身的值。请把 `KUMA_MIERU_TITLE` 和 `KUMA_MIERU_DESCRIPTION` 设为你需要的内容。导航栏和多页面标签仍优先显示 Uptime Kuma 状态页的实时标题，见[环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/)。
+- 内置的 `KUMA_MIERU_ICON` 为空，图标使用状态页自身的图标。
+- 使用仓库的 `docker-compose.yml` 时，`environment` 中列出的变量会覆盖这些默认值，见上面 Docker Compose 部分的说明。
+
+## 修改配置 [#修改配置]
+
+容器每次启动时先运行配置生成脚本，再启动服务。修改 `.env` 后，重新创建容器，让新的环境变量生效：
+
+```bash
+docker compose up -d --force-recreate
+```
+
+使用 `docker run` 时，先删除旧容器，再用新的参数运行 `docker run`：
+
+```bash
+docker stop kuma-mieru
+docker rm kuma-mieru
+```
+
+## 更新镜像 [#更新镜像]
+
+<Tabs items={['Docker Compose', 'docker run']}>
+<Tab value="Docker Compose">
+
+在仓库目录执行。`git pull` 用来获取最新的 `docker-compose.yml`：
+
+```bash
+git pull
+docker compose pull
+docker compose up -d
+```
+
+</Tab>
+<Tab value="docker run">
+
+删除旧容器并拉取新镜像：
+
+```bash
+docker stop kuma-mieru
+docker rm kuma-mieru
+docker pull ghcr.io/alice39s/kuma-mieru:1
+```
+
+然后用原来的参数重新运行 `docker run`。
+
+</Tab>
+</Tabs>
+
+## 健康检查 [#健康检查]
+
+镜像提供健康检查接口 `/api/health`。Dockerfile 和 `docker-compose.yml` 都用 `curl -f` 每 30 秒请求一次容器内的 `http://localhost:3000/api/health`，超时时间为 3 秒。`docker-compose.yml` 设置连续失败 3 次后把容器标记为不健康。
+
+## 自行构建镜像 [#自行构建镜像]
+
+拉取的镜像出现问题时，可以在本地构建。编辑 `docker-compose.yml`，注释 `image` 行，再取消 `build` 行的注释：
+
+```yaml title="docker-compose.yml"
+services:
+  kuma-mieru:
+    # image: ghcr.io/alice39s/kuma-mieru:1
+    build: .
+```
+
+然后构建并启动：
+
+```bash
+docker compose up -d --build
+```
+
+Dockerfile 分两个阶段：
+
+| 阶段 | 内容                                                                                                                                                    |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 构建 | 基于 `node:26.12.1-alpine`，用 Bun 1.4.4 安装 `@kuma-mieru/web` 及其 workspace 依赖，再执行 `bun run --cwd apps/web build`                              |
+| 运行 | 基于 `node:26.12.1-alpine`，以非 root 用户 `nextjs` 运行，用 `dumb-init` 作为 PID 1。启动时用 `tsx` 运行配置生成脚本，再用 Node.js 启动 standalone 服务 |
+
+`STRICT_IMAGE_REMOTE_PATTERNS` 只在构建镜像时生效，见[环境变量](https://alice39s.github.io/kuma-mieru/zh/configuration/environment/#strict_image_remote_patterns)。

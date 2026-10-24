@@ -1,0 +1,54 @@
+3:"$Sreact.fragment"
+4:"/kuma-mieru/_next/static/chunks/2ezg1ehutb05b.js"
+5:I[44376,["$4"],"default"]
+6:I[38256,["$4"],"default"]
+b:"/kuma-mieru/_next/static/chunks/26m16pzj08qz7.js"
+c:"/kuma-mieru/_next/static/chunks/1ozoxp4t_9fq_.js"
+d:"/kuma-mieru/_next/static/chunks/3m0xp0v5a4csw.js"
+e:"/kuma-mieru/_next/static/chunks/0dg0ts-s0z8e5.js"
+f:"/kuma-mieru/_next/static/chunks/1lumvw1sva8i-.js"
+10:"/kuma-mieru/_next/static/chunks/1l4nzeszoua51.js"
+11:"/kuma-mieru/_next/static/chunks/3ykf6aj968bi-.js"
+12:"/kuma-mieru/_next/static/chunks/1od7mvygh6mp0.js"
+13:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsPage"]
+14:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsTitle"]
+15:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsDescription"]
+16:"MarkdownCopyButton"
+17:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"$16"]
+18:"ViewOptionsPopover"
+19:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"$18"]
+1a:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"DocsBody"]
+1b:I[47950,["$b","$c","$d","$e","$f","$10","$11","$12"],"default"]
+1c:I[29972,["$b","$c","$d","$e","$f","$10","$11","$12"],"default"]
+1d:I[75394,["$b","$c","$d","$e","$f","$10","$11","$12"],"Heading"]
+27:"ViewportBoundary"
+28:I[47111,["$4"],"$27"]
+29:"MetadataBoundary"
+2a:I[47111,["$4"],"$29"]
+2b:"$Sreact.suspense"
+8:X
+8:C
+9:X
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L13",null,{"toc":[{"depth":2,"url":"#cloudflare-configuration-in-the-repository","title":"Cloudflare configuration in the repository"},{"depth":2,"url":"#scripts","title":"Scripts"}],"tableOfContent":{"style":"clerk","container":{"role":"navigation","aria-labelledby":"toc-title"}},"className":"sm:px-6 md:px-8 md:pt-8 xl:pt-8","children":[["$","$L14",null,{"className":"text-h1","children":"Cloudflare Workers"}],["$","$L15",null,{"className":"mb-0 text-body text-fd-muted-foreground","children":"Cloudflare Workers deployment is not supported yet. This page lists the Cloudflare configuration and scripts in the repository."}],["$","div",null,{"className":"flex flex-row flex-wrap items-center gap-2 border-b pb-6","children":[["$","$L17",null,{"markdownUrl":"/kuma-mieru/md/en/deploy/cloudflare/content.md"}],["$","$L19",null,{"markdownUrl":"/kuma-mieru/md/en/deploy/cloudflare/content.md","githubUrl":"https://github.com/Alice39s/kuma-mieru/blob/main/apps/docs/content/docs/deploy/cloudflare.en.mdx"}]]}],["$","$L1a",null,{"children":[["$","div",null,{"className":"my-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2.5 gap-y-1 rounded-(--radius-card) border px-3.5 py-3 text-sm text-fd-card-foreground [&>svg]:row-span-2 [&>svg]:size-4 [&>svg]:translate-y-0.5 border-fd-warning/40 bg-fd-warning/10 [&>svg]:text-fd-warning ","children":[["$","$L1b",null,{"icon":{"name":"triangle-alert","size":24,"node":[["path",{"d":"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3","key":"wmoenq"}],["path",{"d":"M12 9v4","key":"juzpu7"}],["path",{"d":"M12 17h.01","key":"p32p05"}]],"aliases":["alert-triangle"]},"aria-hidden":"true"}],["$","p",null,{"className":"col-start-2 my-0! font-semibold","children":"Not supported yet"}],["$","div",null,{"className":"col-start-2 prose-no-margin text-fd-muted-foreground","children":["$","p",null,{"children":["Cloudflare Workers deployment is not supported yet. Use ",["$","$L1c",null,{"children":"Vercel","href":"/en/deploy/vercel/"}]," or\n",["$","$L1c",null,{"children":"Netlify","href":"/en/deploy/netlify/"}]," instead. For the discussion, see\n",["$","$L1c",null,{"children":"#88","href":"https://github.com/Alice39s/kuma-mieru/issues/88#issuecomment-2919619066"}],"."]}]}]]}],"\n",["$","$L1d",null,{"as":"h2","id":"cloudflare-configuration-in-the-repository","children":"Cloudflare configuration in the repository"}],"\n",["$","p",null,{"children":["The web application keeps a Cloudflare build configuration based on OpenNext (",["$","code",null,{"children":"@opennextjs/cloudflare"}],"). The files are in the ",["$","code",null,{"children":"apps/web"}]," directory:"]}],"\n",["$","div",null,{"className":"relative overflow-auto prose-no-margin my-6","tabIndex":0,"children":["$","table",null,{"children":[["$","thead",null,{"children":["$","tr",null,{"children":[["$","th",null,{"className":"whitespace-nowrap","children":"File"}],["$","th",null,{"className":"whitespace-nowrap","children":"Content"}]]}]}],["$","tbody",null,{"children":[["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"wrangler.jsonc"}]}],["$","td",null,{"children":["Worker name ",["$","code",null,{"children":"uptime-kuma-pages"}],", the ",["$","code",null,{"children":"nodejs_compat"}]," flag, the entry ",["$","code",null,{"children":".open-next/worker.js"}]," and the asset directory ",["$","code",null,{"children":".open-next/assets"}]," (binding ",["$","code",null,{"children":"ASSETS"}],")"]}]]}],["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"open-next.config.ts"}]}],["$","td",null,{"children":"The OpenNext configuration for Cloudflare"}]]}]]}]]}]}],"\n",["$","$L1d",null,{"as":"h2","id":"scripts","children":"Scripts"}],"\n",["$","p",null,{"children":["Run these commands in the ",["$","code",null,{"children":"apps/web"}]," directory:"]}],"\n",["$","div",null,{"className":"relative overflow-auto prose-no-margin my-6","tabIndex":0,"children":["$","table",null,{"children":[["$","thead",null,{"children":["$","tr",null,{"children":[["$","th",null,{"className":"whitespace-nowrap","children":"Command"}],"$L1e"]}]}],"$L1f"]}]}],"\n","$L20"]}],"$L21"]}],["$L22","$L23","$L24"],"$L25"]}],"p":"$@26","v":null,"s":"$9"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"deploy/cloudflare","s":["llms-full.txt","llms.txt"]},"h":65600,"d":{"r":["$","$3","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":"$8","s":"$9"},"c":"$Qa"}]]
+1:[["children",{"s":{"n":"lang","t":"d","k":"en","s":["api","llms.txt","md","og"]},"h":196656,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":131152,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L28",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L2a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$2b",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Cloudflare Workers · Kuma Mieru Docs"}],["$","meta","1",{"name":"description","content":"Cloudflare Workers deployment is not supported yet. This page lists the Cloudflare configuration and scripts in the repository."}],["$","link","2",{"rel":"canonical","href":"https://alice39s.github.io/kuma-mieru/en/deploy/cloudflare/"}],["$","link","3",{"rel":"alternate","hrefLang":"zh-CN","href":"https://alice39s.github.io/kuma-mieru/zh/deploy/cloudflare/"}],["$","link","4",{"rel":"alternate","hrefLang":"en","href":"https://alice39s.github.io/kuma-mieru/en/deploy/cloudflare/"}],["$","meta","5",{"property":"og:title","content":"Cloudflare Workers"}],["$","meta","6",{"property":"og:description","content":"Cloudflare Workers deployment is not supported yet. This page lists the Cloudflare configuration and scripts in the repository."}],["$","meta","7",{"property":"og:url","content":"https://alice39s.github.io/kuma-mieru/en/deploy/cloudflare/"}],["$","meta","8",{"property":"og:site_name","content":"Kuma Mieru Docs"}],["$","meta","9",{"property":"og:locale","content":"en"}],["$","meta","10",{"property":"og:image","content":"https://alice39s.github.io/kuma-mieru/og/en/deploy/cloudflare/image.png"}],["$","meta","11",{"property":"og:image:width","content":"1200"}],["$","meta","12",{"property":"og:image:height","content":"630"}],["$","meta","13",{"property":"og:type","content":"article"}],["$","meta","14",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","15",{"name":"twitter:title","content":"Cloudflare Workers"}],["$","meta","16",{"name":"twitter:description","content":"Cloudflare Workers deployment is not supported yet. This page lists the Cloudflare configuration and scripts in the repository."}],["$","meta","17",{"name":"twitter:image","content":"https://alice39s.github.io/kuma-mieru/og/en/deploy/cloudflare/image.png"}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@2c","v":null,"s":"$9"}},"a":"$@2d","u":"$@2e","b":"K5jyJXwthbGVOt8vX6C0f"}
+2f:I[44400,["$b","$c","$d","$e","$f","$10","$11","$12"],"PageLastUpdate"]
+30:I[47111,["$4"],"OutletBoundary"]
+:HL["/kuma-mieru/_next/static/chunks/0iaxnelvtqw2u.css","style"]
+1e:["$","th",null,{"className":"whitespace-nowrap","children":"Action"}]
+1f:["$","tbody",null,{"children":[["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"bun run build:cloudflare"}]}],["$","td",null,{"children":["Sets ",["$","code",null,{"children":"CF_DEPLOYMENT=true"}],", runs the ",["$","code",null,{"children":"generate"}]," script, then builds with ",["$","code",null,{"children":"opennextjs-cloudflare build"}]]}]]}],["$","tr",null,{"children":[["$","td",null,{"children":["$","code",null,{"children":"bun run deploy:cloudflare"}]}],["$","td",null,{"children":["Sets ",["$","code",null,{"children":"CF_DEPLOYMENT=true"}]," and deploys with ",["$","code",null,{"children":"opennextjs-cloudflare deploy"}]]}]]}]]}]
+20:["$","p",null,{"children":["If you try it yourself, import the repository on Cloudflare and set the root directory to ",["$","code",null,{"children":"apps/web"}],". Then set the variables as described in ",["$","$L1c",null,{"children":"Environment Variables","href":"/en/configuration/environment/"}],"."]}]
+21:["$","$L2f",null,{"date":"$D2026-10-24T19:40:27.000Z"}]
+22:["$","link","0",{"rel":"stylesheet","href":"/kuma-mieru/_next/static/chunks/0iaxnelvtqw2u.css","precedence":"next"}]
+23:["$","script","script-0",{"src":"/kuma-mieru/_next/static/chunks/3ykf6aj968bi-.js","async":true}]
+24:["$","script","script-1",{"src":"/kuma-mieru/_next/static/chunks/1od7mvygh6mp0.js","async":true}]
+25:["$","$L30",null,{"children":["$","$2b",null,{"name":"Next.MetadataOutlet","children":"$@31"}]}]
+2e:true
+9:300
+31:null
+9:C
+2d:0
+7:"$undefined"
+2c:"$undefined"
+26:"$undefined"
