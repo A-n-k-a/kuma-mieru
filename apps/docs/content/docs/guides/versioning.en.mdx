@@ -1,0 +1,63 @@
+---
+title: Versioning
+description: Explains the Docker image tags, the compatibility scope of v1 and the release process, so you can select a tag.
+icon: Tags
+---
+
+## Recommended tag
+
+<Callout type="warn" title="Use the major version channel">
+  For the Docker image, use `ghcr.io/alice39s/kuma-mieru:1` (the major version channel). Do not pin
+  a minor or patch version (for example `:1.6` or `:1.6.2`) unless you have a clear canary and
+  rollback strategy.
+</Callout>
+
+## Compatibility scope
+
+- Within the `v1` major version, the project keeps forward compatibility as much as possible.
+- `v2` will contain major breaking changes.
+
+## Image tags
+
+The `Docker Build and Push to GHCR` workflow gives the image these tags, based on the version in `apps/web/package.json`:
+
+| Tag           | Example            | Points to                                     |
+| ------------- | ------------------ | --------------------------------------------- |
+| Major version | `1`                | The latest build of this major version        |
+| Minor version | `1.6`              | The latest build of this minor version        |
+| Full version  | `1.6.2`            | The build of this version                     |
+| `latest`      | `latest`           | The latest build of the default branch `main` |
+| Commit        | `sha-<short hash>` | The build of one commit                       |
+
+Each tag contains the `linux/amd64` and `linux/arm64` architectures. The workflow runs in these cases:
+
+| Trigger                                                                                                        | Builds the image | Pushes the tags |
+| -------------------------------------------------------------------------------------------------------------- | ---------------- | --------------- |
+| A push to `main` that changes `apps/web/package.json`, `Dockerfile`, `docker-compose.yml` or the workflow file | Yes              | Yes             |
+| A manual run, or a start from `Manual Version Bump`                                                            | Yes              | Yes             |
+| A pull request to `main` that changes `apps/web/package.json` or `Dockerfile`                                  | Yes              | No              |
+
+## Release process
+
+```mermaid
+flowchart LR
+  A["Manual Version Bump: update, commit and push the version"] -->|starts directly| C["Create Release"]
+  A -->|starts directly| D["Docker Build and Push to GHCR"]
+  M["A maintainer pushes a version commit to main"] -->|push starts| C
+  M -->|push starts| D
+  C --> E["v tag and GitHub Release"]
+  D --> F["GHCR image"]
+```
+
+1. A maintainer runs the `Manual Version Bump` workflow manually and selects `patch`, `minor` or `major`. The workflow updates the version in `apps/web/package.json`, commits `chore(release): bump version to <version>` and pushes the commit. Then it starts `Create Release` and `Docker Build and Push to GHCR` directly.
+2. A maintainer can also change the version in `apps/web/package.json` and push the commit to `main`. Then the push starts the two workflows.
+3. `Create Release` reads the version in `apps/web/package.json`. If the current version is different from the version of the latest release, it creates the tag `v<version>` and a GitHub Release. The release notes contain a changelog built from the commits, a list of contributors, and the update procedures for Docker and Docker Compose.
+4. `Docker Build and Push to GHCR` builds the image and pushes the tags in the table above.
+
+## Upgrade
+
+| Deployment method              | How to upgrade                                                                                                                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Docker                         | Pull the new image and recreate the container. See [Docker](../deploy/docker.mdx)                                                            |
+| Vercel, Netlify, EdgeOne Pages | Sync your fork on GitHub (`Sync fork`, then `Update branch`). See [Vercel](../deploy/vercel.mdx)                                             |
+| Run from source                | Run `git pull` to get the latest code. Then install the dependencies and build again as described in [Run from Source](../deploy/source.mdx) |

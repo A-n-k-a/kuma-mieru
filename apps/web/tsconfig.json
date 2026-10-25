@@ -1,0 +1,23 @@
+{
+  "extends": "@kuma-mieru/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "app",
+    "components",
+    "config",
+    "scripts",
+    "services",
+    "types",
+    "utils",
+    "proxy.ts",
+    "open-next.config.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", ".next", ".open-next"]
+}
